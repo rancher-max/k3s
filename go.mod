@@ -1,4 +1,4 @@
-module github.com/k3s-io/k3s
+module github.com/rancher-max/k3s
 
 go 1.16
 
