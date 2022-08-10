@@ -2,6 +2,7 @@ package createcluster
 
 import (
 	"fmt"
+	"runtime"
 
 	"path/filepath"
 	"testing"
@@ -50,11 +51,20 @@ func ClusterOptions(os ...ClusterOption) map[string]interface{} {
 
 func BuildCluster(t *testing.T, tfVarsPath string, destroy bool, terraformVars map[string]interface{}) (string, error) {
 	basepath := tf.GetBasepath()
-	tfDir, err := filepath.Abs(basepath + "/tests/terraform/modules/k3scluster")
+	_, callerPathZero, _, _ := runtime.Caller(0)
+	_, callerPathOne, _, _ := runtime.Caller(1)
+	cpzBasepath := filepath.Dir(callerPathZero)
+	cpoBasepath := filepath.Dir(callerPathOne)
+	fmt.Println("\n------------------------------\n", "Caller path 0: ", callerPathZero, "\nCaller path 1: ", callerPathOne)
+	fmt.Println("Basepath: ", basepath)
+	fmt.Println("\n------------------------------\n", "cp 0 baespath: ", cpzBasepath, "\ncp 1 basepath:: ", cpoBasepath)
+	fmt.Println(filepath.Join(cpoBasepath, "..", "/modules"))
+	tfDir, err := filepath.Abs(basepath + "/tests/terraform/modules")
 	if err != nil {
 		return "", err
 	}
 	varDir, err := filepath.Abs(basepath + tfVarsPath)
+	fmt.Println("Vardir is: ", varDir)
 	if err != nil {
 		return "", err
 	}

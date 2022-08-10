@@ -23,7 +23,7 @@ var accessKey = flag.String("access_key", "", "local path to the private sshkey"
 var serverNodes = flag.Int("no_of_server_nodes", 2, "count of server nodes")
 var workerNodes = flag.Int("no_of_worker_nodes", 1, "count of worker nodes")
 
-var tfVars = flag.String("tfvars", "/tests/terraform/modules/k3scluster/config/local.tfvars", "custom .tfvars file from base project path")
+var tfVars = flag.String("tfvars", "/tests/terraform/modules/config/local.tfvars", "custom .tfvars file from base project path")
 var destroy = flag.Bool("destroy", false, "a bool")
 
 var failed = false
@@ -42,7 +42,7 @@ var _ = BeforeSuite(func() {
 
 var _ = Describe("Test:", func() {
 	Context("Build Cluster:", func() {
-		It("Starts up with no issues", func() {
+		FIt("Starts up with no issues", func() {
 			status, err := BuildCluster(&testing.T{}, *tfVars, false, terraformOptions)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(status).To(Equal("cluster created"))
