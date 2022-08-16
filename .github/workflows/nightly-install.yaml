@@ -4,16 +4,25 @@ on:
     - cron: "*/5 * * * *"
     - cron: "0 * * * *"
   workflow_dispatch: {}
+env:
+  DAY_OF_WEEK: Monday
 jobs:
   test:
     name: "Smoke Test"
     runs-on: macos-12
     timeout-minutes: 40
     env:
-      INSTALL_K3S_COMMIT: $GITHUB_SHA
+      Greeting: Hello
+      INSTALL_K3S_COMMIT: ${{ github.sha }}
     steps:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
+      - name: "Say Hello Mona it's Monday"
+        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+        env:
+          First_Name: Mona
       - name: Get environment
         run: env
+      - name: Commit to use
+        run: echo "K3S Commit is $INSTALL_K3S_COMMIT"
