@@ -10,7 +10,6 @@ jobs:
     runs-on: macos-12
     timeout-minutes: 40
     env:
-      INSTALL_K3S_CHANNEL: ${{ matrix.channel }}
       INSTALL_K3S_COMMIT: $GITHUB_SHA
     steps:
       # Runs a single command using the runners shell
