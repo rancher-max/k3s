@@ -1,7 +1,5 @@
 name: Integration Test Coverage
 on: 
-  schedule:
-    - cron: "0 * * * *"
   push:
     paths-ignore:
       - "**.md"
